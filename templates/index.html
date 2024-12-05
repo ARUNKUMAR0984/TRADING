@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis Recommendations</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        h2 {
+            color: #007BFF;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #007BFF;
+        }
+
+        /* Table Styles */
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Container for tables */
+        .table-container {
+            margin-bottom: 40px;
+        }
+
+        /* Styling for stock recommendation cards */
+        .recommendation-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+        }
+
+        .recommendation-card h3 {
+            margin-bottom: 15px;
+        }
+
+        .recommendation-card table {
+            margin-top: 10px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Styling for table headers */
+        .recommendation-card th {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-align: left;
+        }
+
+        .recommendation-card td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .recommendation-card tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .recommendation-card tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Analysis Recommendations</h1>
+
+    <div class="table-container">
+        <h2>Recommended Stocks for Intraday Trading</h2>
+        {% for range_key, stocks in recommendations['Intraday'].items() %}
+            <div class="recommendation-card">
+                <h3>{{ range_key }}</h3>
+                <table>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Current Price</th>
+                        <th>Volatility</th>
+                        <th>Mean Daily Return</th>
+                    </tr>
+                    {% for stock in stocks.iterrows() %}
+                        <tr>
+                            <td>{{ stock[1]['Ticker'] }}</td>
+                            <td>{{ stock[1]['Current Price'] }}</td>
+                            <td>{{ stock[1]['Volatility'] }}</td>
+                            <td>{{ stock[1]['Mean Daily Return'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="table-container">
+        <h2>Recommended Stocks for Delivery Trading</h2>
+        {% for range_key, stocks in recommendations['Delivery'].items() %}
+            <div class="recommendation-card">
+                <h3>{{ range_key }}</h3>
+                <table>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Current Price</th>
+                        <th>Cumulative Return</th>
+                        <th>Mean Daily Return</th>
+                    </tr>
+                    {% for stock in stocks.iterrows() %}
+                        <tr>
+                            <td>{{ stock[1]['Ticker'] }}</td>
+                            <td>{{ stock[1]['Current Price'] }}</td>
+                            <td>{{ stock[1]['Cumulative Return'] }}</td>
+                            <td>{{ stock[1]['Mean Daily Return'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
